@@ -365,7 +365,7 @@ footer{
 
     header {
 
-        width: 800px;
+        width: 100%;
 
       }
   
@@ -375,7 +375,20 @@ footer{
       grid-gap: 10px;
     }
   }
+  .parrafo_titulo{
+    width: 80%;
+    margin: auto;
+    
+  }
   
+  .div_titulo{
+    width: 100%;font-size: 30px;
+  }
+
+  .div_titulo p{
+    font-size: 20px;
+  }
+
 
   .contenido_ventanaModal {
     padding: 5px;
@@ -386,8 +399,11 @@ footer{
     width: 60%;
   }
   
-  @media (max-width: 480px) {
+  @media (max-width: 450px) {
     /* Estilos para tamaño de pantalla de 450px o menos */
+
+
+    
     main {
       margin-top: 10px;
       margin-bottom: 10px;
@@ -398,17 +414,45 @@ footer{
       }
     
       .parrafo_titulo {
+        
         font-size: 12px;
         padding: 5px;
+        width: 70%;
+        margin: auto;
+        
+        
       }
-    
+
+      .listFav{
+
+        margin-left: 50px;
+        width: 400px;
+        margin-top: 25px;
+
+      }
+      ul{
+        width: 100%;
+      }
+      
+      .tachito{
+
+        margin-right: 150px;
+      }
+    .container{
+
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
       .div_titulo{
         text-align: center;
-        width: 400px;
+        width: 450px;
       }
       header {
         height: auto;
         padding: 18px;
+        width: 100%;
       }
     
       header #inputBuscar {
@@ -441,19 +485,29 @@ footer{
     
     #pelicula {
       grid-template-columns: repeat(1, 1fr);
-      grid-gap: 10px;
+      grid-gap: 35px;
+      margin-top: 30px;
     }
   
     .cuadro_pelicula img {
-      width: 100%;
+      width: 80%;
     }
   
+    .cuadro_pelicula{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+
     header {
       flex-direction: column;
       height: auto;
+      
     }
     .ventana_modal {
-        margin: 5% auto;
+        height: 100%;
      
       }
     
