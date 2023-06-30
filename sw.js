@@ -30,7 +30,7 @@ caches.open('mi-cache').then(cache =>{
 self.addEventListener('fetch', function(evento){
     // Buscamos en la web
     const respuesta = fetch(evento.request).then( respuestaNetwork => {
-        return caches.open( 'mi-cache-v1' ).then(  cache => {
+        return caches.open( 'mi-cache' ).then(  cache => {
             // Si la web responde lo guardo en cache
             cache.put(  evento.request, respuestaNetwork.clone() );
             return respuestaNetwork;
