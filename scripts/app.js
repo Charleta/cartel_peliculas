@@ -102,8 +102,7 @@ const db = new PouchDB('favoritos');
                 var scrollPosition = window.scrollY;
                 //Se cambia el display para que aparezca como modal
                 modal.style.display = 'block';
-                modal.style.top = scrollPosition + "px";
-                modal.style.left = 0;
+                
 
                             // Funcion de cerrar la ventana modal cambiando el display a none
                             const cerrar = document.querySelector('.close');
