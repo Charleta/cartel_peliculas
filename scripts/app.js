@@ -198,7 +198,7 @@ const db = new PouchDB('favoritos');
                                         <div class='li_style'>
                                         <li class='li_item'>
                                         <span> ${item.doc.titulo_peli}</span> 
-                                        <span class='tachito' onClick="deleteNota(this)"> &#x1F5D1;</span>
+                                        <span class='tachito' onClick="deleteButtonPressed(peliFav)"> &#x1F5D1;</span>
                                         </li> 
                                         </div>`;
 
@@ -235,7 +235,10 @@ const db = new PouchDB('favoritos');
 
     const tachito = document.querySelector('.tachito');
     
+    function deleteButtonPressed(listaFav) {
+      console.log('borrado')
+      db.remove(listaFav);
+    }
 
-    function deleteNota(elemento){
-        console.log('borrado')
-    };
+
+    

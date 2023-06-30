@@ -4,13 +4,13 @@ console.log ('hola desde el service');
 caches.open('mi-cache').then(cache =>{
     cache.addAll([
         '/',
-        'index.html',
-        'style.css',
-        'sw.js',
-        'scripts/app.js',
-        'pouchdb-8.0.1.js',
+        '/index.html',
+        '/style.css',
+        '/sw.js',
+        '/scripts/app.js',
+        '/pouchdb-8.0.1.js',
         '/34255-espacio-jpg',
-        '/favorito',
+        
     ])
 });
 
