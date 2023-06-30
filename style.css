@@ -428,6 +428,7 @@ footer{
         margin-left: 50px;
         width: 400px;
         margin-top: 25px;
+        display: none;
 
       }
       ul{

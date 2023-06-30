@@ -82,7 +82,8 @@ const db = new PouchDB('favoritos');
                            
     
                             console.log(nombre)
-    
+                            
+                            modal.style.display = 'none'
                         });
                       
 
