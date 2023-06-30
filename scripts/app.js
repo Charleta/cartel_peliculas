@@ -180,6 +180,7 @@ const db = new PouchDB('favoritos');
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //Cargar peliculas guardadas
+    let peliFav = [];//armo la variable global de pelifav
 
     function peliculasGuardas () {
 
@@ -198,7 +199,7 @@ const db = new PouchDB('favoritos');
                                         <div class='li_style'>
                                         <li class='li_item'>
                                         <span> ${item.doc.titulo_peli}</span> 
-                                        <span class='tachito' onClick="deleteButtonPressed(peliFav)"> &#x1F5D1;</span>
+                                        <span class='tachito' onClick="deleteNota(this)"> &#x1F5D1;</span>
                                         </li> 
                                         </div>`;
 
@@ -216,9 +217,7 @@ const db = new PouchDB('favoritos');
             //     .then(response => response.json())
             //     .then(data => mostrarPeliculas(data.results))
             //    .catch(error => console.error(error));
-
-            
-                
+    
             });
             
         
@@ -235,10 +234,27 @@ const db = new PouchDB('favoritos');
 
     const tachito = document.querySelector('.tachito');
     
-    function deleteButtonPressed(listaFav) {
-      console.log('borrado')
-      db.remove(listaFav);
+    function deleteButtonPressed(elemento) {
+      const listItem = elemento.parentNode;
+      listItem.parentNode.removeChild(listItem);
     }
+   
 
+    function deleteNota(elemento) {
+      const tituloPelicula = elemento.parentNode.firstChild.textContent;
+    
+      db.get(tituloPelicula).then(function (doc) {
+        db.delete(doc._id).then(function () {
+          console.log('Película eliminada de favoritos');
+          // Aquí puedes actualizar la lista de favoritos si es necesario
+        }).catch(function (error) {
+          console.error(error);
+        });
+      }).catch(function (error) {
+        console.error(error);
+      });
+    }
+    
 
+    peliculasGuardas();
     
