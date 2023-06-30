@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicacion de peliculas</title>
+    <link rel="stylesheet" href="style.css">    
+    <script src="pouchdb-8.0.1.js" ></script>
+
+</head>
+<body>
+<div class="container">
+
+    <div class="div_titulo">
+
+    <h1>CARTELERA DE PELICULAS</h1>
+        <div class="parrafo_titulo">
+        <p>Te presentamos la app de peliculas, dond podras guardar tus peliculas favoritas para no olvidarte en esos momentos que necesitas ver una.
+
+        </p>
+        <p>Para empezar, en boton "Mostrar Peliculas" podras ver todas las peliculas disponible, tocando en alguna tapa de pelicula te aparecera
+            la descripcion de la pelicula, el año en el cual se hizo y podras guardarla en favoritos con el icono de corazon.
+        </p>
+        </div>
+    </div>
+    
+    <header>
+        
+        <div>
+            <button class="btn_favoritos">Mostrar Favoritos</button>
+        </div>
+        <div class="boton_mostrar"> 
+                <button class="btn_mostrar">Mostrar Peliculas</button>
+        </div>
+        
+        <div class="buscador">
+        <input type="text" id="inputBuscar" placeholder="Buscar película por nombre">
+            <button id="btnBuscar">Buscar</button>
+        </div>
+            
+    </header>
+    
+    <main>
+        
+        <div class="listFav">
+            <h2>Tus peliculas favoritas son: </h2>
+            <ul class="listaul">
+                <li></li>
+            </ul>
+        </div>
+        <div id="pelicula">
+            <img src="" alt="">
+        </div>
+
+        <div class="ventana_modal">
+            <div class="contenido_ventanaModal">
+                <div class="top_modal">
+                <span id="corazon_favorito">&hearts;</span>
+                <span class="close">&times;</span>
+                </div>
+                <div class="img_modal">
+                <img id="imagen_ventanaModal" src="" alt="">
+                </div>
+                <div class="text_modal">
+               <h3 id="titulo_ventanaModal"></h3>
+               <p id="descripcion_ventaModal"></p>
+               <p id="año_ventanaModal"></p>
+               </div>
+            </div>
+        </div>
+    
+    </main>
+
+           
+
+    <footer>
+        <div>
+        <p>Carlos Ortega || Aplicaciones Web Progresivas || TP2</p>
+        </div>
+    </footer>
+</div>
+    <script src="scripts/app.js" ></script>
+</body>
+</html>
+
