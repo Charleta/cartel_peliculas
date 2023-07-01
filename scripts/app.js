@@ -25,7 +25,7 @@ const db = new PouchDB('favoritos'); // Se crea la base de indexDB
 
 
 // Cargo la API de la página y la guardo en obtenerPeliculas
-function obtenerPeliculas() {
+function obtenerPeliculas(){
   const options = {
     method: 'GET',
     headers: {
@@ -54,9 +54,9 @@ function obtenerPeliculas() {
 
   peliculas.forEach(pelicula => {
 
-    //Toma de datos de la api y carga en variable
+    //Toma de datos de la api y recorro y cargo en las variables
+
     const nombre = pelicula.title;
-    const idPeli = pelicula.id;
     const año = pelicula.release_date.slice(0, 4);
     const imagenURL = 'https://image.tmdb.org/t/p/w500' + pelicula.poster_path;
     const detalles = pelicula.overview;
@@ -78,8 +78,9 @@ function obtenerPeliculas() {
                   const imagenModal = document.getElementById('imagen_ventanaModal');
                   imagenModal.src = imagenURL;
                   imagenModal.alt = 'Portada de ' + nombre;
+                  //guardo el id de la imagen
                   iconoFav.id = idImagen;
-                  console.log(iconoFav.id)
+                  
                   const titulo = document.getElementById('titulo_ventanaModal');
                   titulo.textContent = nombre;
                   const descripcion = document.getElementById('descripcion_ventaModal');
@@ -156,7 +157,7 @@ const btnBuscar = document.getElementById('btnBuscar');
       peliculas.forEach(pelicula => {
         const nombre = pelicula.title;
         
-        const idPeli =  pelicula.id;
+        
         const año = pelicula.release_date.slice(0, 4);
         const imagenURL = 'https://image.tmdb.org/t/p/w500' + pelicula.poster_path;
         const detalles = pelicula.overview;
@@ -181,8 +182,9 @@ const btnBuscar = document.getElementById('btnBuscar');
                           const imagenModal = document.getElementById('imagen_ventanaModal');
                           imagenModal.src = imagenURL;
                           imagenModal.alt = 'Portada de ' + nombre;
+                          //aca guardo el id de la imagen
                           iconoFav.id = idImagen;
-                          console.log(iconoFav.id)
+                          
                           const titulo = document.getElementById('titulo_ventanaModal');
                           titulo.textContent = nombre;
                           const descripcion = document.getElementById('descripcion_ventaModal');
@@ -233,10 +235,6 @@ const btnBuscar = document.getElementById('btnBuscar');
 
       iconoFav.addEventListener('click', ()=>{
         
-  
-
-      
-          console.log('La película ya está guardada');
           modal.style.display = 'none';
         
         const fecha = new Date().toISOString();
@@ -290,13 +288,15 @@ const btnBuscar = document.getElementById('btnBuscar');
             peliculaItem.classList.add('cuadro_pelicula');
     
             const imagen = document.createElement('img');
+            //creo el div contenedor del boton borrar
             const cuadroBton = document.createElement('div');
             cuadroBton.classList.add('cuadroBton');
             
             const botonBorrar = document.createElement('button');
             botonBorrar.classList.add('boton_borrar_fav');
             const idBoton = idPeli;
-            botonBorrar.setAttribute('data-doc-id', idBoton);
+
+            botonBorrar.setAttribute('data-doc-id', idBoton); // le agrego el atributo del id que se guarda el indexdb
             botonBorrar.innerText ='Borrar'
             imagen.src = imagenURL;
             imagen.alt = 'Portada de pelicula ' ;
@@ -308,22 +308,21 @@ const btnBuscar = document.getElementById('btnBuscar');
 
              
 
-  function deleteButtonPressed(idPeli) {
-    db.remove(idPeli);
-  }
-  
-  
-  // Obtén una referencia al botón
-
-  
-  // Asigna el evento click al botón y llama a handleDeleteButtonClick
-  botonBorrar.addEventListener('click', deleteButtonPressed);
-  
-          });
-        })
-        .catch(error => console.error(error));
-    });
+            function botonBorrarTodo(favoritos) {
+              db.remove(favoritos);
+            }
+            
+            
+//----------------------------------------------------------------------------------------------------------------------------
+            
+          
+            botonBorrar.addEventListener('click', botonBorrarTodo);
+            
+                    });
+                  })
+                  .catch(error => console.error(error));
+              });
   //--------------------------------------------------------------------------------------------------------------------
 
- 
+            
 
