@@ -554,3 +554,49 @@ footer{
     align-items: center;
     width: 350px;
   }
+
+  .cuadroBton {
+
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+
+  }
+
+  .boton_borrar_fav{
+  min-width: 130px;
+  height: 40px;
+  color: #fff;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 15px;
+  z-index: 0;
+  background: #fff;
+  overflow: hidden;
+  border: 2px solid #d90429;
+  color: #d90429;
+  font-size: 20px;
+}
+.boton_borrar_fav:hover {
+  color: #fff;
+}
+.boton_borrar_fav:hover:after {
+  width: 100%;
+}
+.boton_borrar_fav:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  transition: all 0.3s ease;
+  right: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background: #d90429;
+}

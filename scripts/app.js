@@ -4,8 +4,25 @@ let iconoFav = document.querySelector('.corazon_favorito');
 const btnFav = document.querySelector('.btn_favoritos');
 const listaFav = document.querySelector('.listFav');
 const listaul = document.querySelector('.listaul');
+const modal = document.querySelector('.ventana_modal');
 
-const db = new PouchDB('favoritos');
+
+
+const db = new PouchDB('favoritos'); // Se crea la base de indexDB
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ //Se carga el service worker
+ if( navigator.serviceWorker){
+    
+  navigator.serviceWorker.register('sw.js');
+
+  } else {
+      document.querySelector('main').innerHTML = '<h2> El navegador no ServiceWorker </h2>';
+  };
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 // Cargo la API de la página y la guardo en obtenerPeliculas
 function obtenerPeliculas() {
@@ -26,7 +43,7 @@ function obtenerPeliculas() {
     });
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Aca muestro las peliculas
 
@@ -43,6 +60,7 @@ function obtenerPeliculas() {
     const año = pelicula.release_date.slice(0, 4);
     const imagenURL = 'https://image.tmdb.org/t/p/w500' + pelicula.poster_path;
     const detalles = pelicula.overview;
+    const idImagen = pelicula.poster_path;
 
     // cro el div de cada pelicula
     const peliculaItem = document.createElement('div');
@@ -55,14 +73,12 @@ function obtenerPeliculas() {
     imagen.alt = 'Portada de ' + nombre;
 
                 // Se le da función de click a la imagen para que abra más detalles
-                imagen.addEventListener('click', function () {
-                  const titulos = this.getAttribute('data_titulo');
-                  const modal = document.querySelector('.ventana_modal');
+                imagen.addEventListener('click', function () {               
 
                   const imagenModal = document.getElementById('imagen_ventanaModal');
                   imagenModal.src = imagenURL;
                   imagenModal.alt = 'Portada de ' + nombre;
-                  iconoFav.id = idPeli;
+                  iconoFav.id = idImagen;
                   console.log(iconoFav.id)
                   const titulo = document.getElementById('titulo_ventanaModal');
                   titulo.textContent = nombre;
@@ -144,6 +160,8 @@ const btnBuscar = document.getElementById('btnBuscar');
         const año = pelicula.release_date.slice(0, 4);
         const imagenURL = 'https://image.tmdb.org/t/p/w500' + pelicula.poster_path;
         const detalles = pelicula.overview;
+        const idImagen = pelicula.poster_path;
+        
 
         // Crea los elementos HTML para mostrar la película
 
@@ -158,14 +176,12 @@ const btnBuscar = document.getElementById('btnBuscar');
 
           // Se le da función de click a la imagen para que abra más detalles
 
-                        imagen.addEventListener('click', function () {
-                          const titulos = this.getAttribute('data_titulo');
-                          const modal = document.querySelector('.ventana_modal');
+                        imagen.addEventListener('click', function () {                          
 
                           const imagenModal = document.getElementById('imagen_ventanaModal');
                           imagenModal.src = imagenURL;
                           imagenModal.alt = 'Portada de ' + nombre;
-                          iconoFav.id = idPeli;
+                          iconoFav.id = idImagen;
                           console.log(iconoFav.id)
                           const titulo = document.getElementById('titulo_ventanaModal');
                           titulo.textContent = nombre;
@@ -205,17 +221,29 @@ const btnBuscar = document.getElementById('btnBuscar');
       });
     })
     .catch(error => console.error(error));
+    
+});
 
-//-----------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-      //click en corazon de me gusta y que se guarde
+
+//click en corazon de me gusta y que se guarde
+
+
 
       iconoFav.addEventListener('click', ()=>{
+        
+  
+
+      
+          console.log('La película ya está guardada');
+          modal.style.display = 'none';
+        
         const fecha = new Date().toISOString();
 
         const listaFav = {
             _id: fecha,
-            idPeliGuardada : iconoFav.id,
+            NombrePeli : iconoFav.id,
           }
                
           db.put(listaFav).then(() => {
@@ -226,104 +254,76 @@ const btnBuscar = document.getElementById('btnBuscar');
             });
 
 
-           const modal = document.querySelector('.ventana_modal');
+           
             modal.style.display = 'none';
 
-        });
-       
-
         
-});
+      });
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    //Se carga el service worker
-    if( navigator.serviceWorker){
+
     
-    navigator.serviceWorker.register('sw.js');
-
-    } else {
-        document.querySelector('main').innerHTML = '<h2> El navegador no ServiceWorker </h2>';
-    };
-
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     //Cargar peliculas guardadas
-    let peliFav = [];//armo la variable global de pelifav
 
-    function peliculasGuardas () {
-
-        peliculaDiv.innerHTML ='';
-        listaul.innerHTML ='';
-        
-        db.allDocs({include_docs: true, descending: true}).then (documentos =>{
-            
-            const peliFav = documentos.rows;
-            
-
-            peliFav.forEach((item) =>{
-
-                
-                listaul.innerHTML += `  
-                                        <div class='li_style'>
-                                        <li class='li_item'>
-                                        <span> ${item.doc.titulo_peli}</span> 
-                                        <span class='tachito' onClick="deleteNota(this)"> &#x1F5D1;</span>
-                                        </li> 
-                                        </div>`;
-
-            //    const nombreFav=item.doc.titulo_peli;
-
-            //     const options = {
-            //     method: 'GET',
-            //     headers: {
-            //     accept: 'application/json',
-            //     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZWVkZTRjMGJhNzczYzJkNGRlYzEyMDYzODViYTI5YiIsInN1YiI6IjY0OWIwMjNiZmVkNTk3MDBlYTA5YWI3MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wygduOri8MjwIKT6-pVjZEoxmJElT0epR5R4kiWspVg'
-            //     }
-            //     };
-                
-            //     fetch('https://api.themoviedb.org/3/search/movie?query=' + nombreFav + '&language=en-US&page=1', options)
-            //     .then(response => response.json())
-            //     .then(data => mostrarPeliculas(data.results))
-            //    .catch(error => console.error(error));
+    btnFav.addEventListener('click', () => {
+      
+      db.allDocs({ include_docs: true })
+        .then(result => {
+          console.log(result)
+          const peliculasFavoritas = result.rows;
+          
+          peliculaDiv.innerHTML = '';
     
-            });
+          peliculasFavoritas.forEach(pelicula => {
             
-        
+            const idPeli = pelicula.doc.NombrePeli;
+            
+            // const año = pelicula.release_date.slice(0, 4);
+            const imagenURL = 'https://image.tmdb.org/t/p/w500' + idPeli;
+            
+    
+            // Crea los elementos HTML para mostrar la película
+    
+            const peliculaItem = document.createElement('div');
+            peliculaItem.classList.add('cuadro_pelicula');
+    
+            const imagen = document.createElement('img');
+            const cuadroBton = document.createElement('div');
+            cuadroBton.classList.add('cuadroBton');
+            
+            const botonBorrar = document.createElement('button');
+            botonBorrar.classList.add('boton_borrar_fav');
+            const idBoton = idPeli;
+            botonBorrar.setAttribute('data-doc-id', idBoton);
+            botonBorrar.innerText ='Borrar'
+            imagen.src = imagenURL;
+            imagen.alt = 'Portada de pelicula ' ;
+    
+            peliculaItem.appendChild(imagen);
+            peliculaDiv.appendChild(peliculaItem);
+            cuadroBton.appendChild(botonBorrar);
+            peliculaItem.appendChild(cuadroBton);
 
-        }).catch (error =>{
-            console.error(error)
+             
+
+  function deleteButtonPressed(idPeli) {
+    db.remove(idPeli);
+  }
+  
+  
+  // Obtén una referencia al botón
+
+  
+  // Asigna el evento click al botón y llama a handleDeleteButtonClick
+  botonBorrar.addEventListener('click', deleteButtonPressed);
+  
+          });
         })
-            listaFav.style.display = 'flex'; 
+        .catch(error => console.error(error));
+    });
+  //--------------------------------------------------------------------------------------------------------------------
 
-    };
+ 
 
-    btnFav.addEventListener('click', peliculasGuardas);
-
-
-    const tachito = document.querySelector('.tachito');
-    
-    function deleteButtonPressed(elemento) {
-      const listItem = elemento.parentNode;
-      listItem.parentNode.removeChild(listItem);
-    }
-   
-
-    function deleteNota(elemento) {
-      const tituloPelicula = elemento.parentNode.firstChild.textContent;
-    
-      db.get(tituloPelicula).then(function (doc) {
-        db.delete(doc._id).then(function () {
-          console.log('Película eliminada de favoritos');
-          // Aquí puedes actualizar la lista de favoritos si es necesario
-        }).catch(function (error) {
-          console.error(error);
-        });
-      }).catch(function (error) {
-        console.error(error);
-      });
-    }
-    
-
-    peliculasGuardas();
-    
