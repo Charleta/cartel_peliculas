@@ -1,0 +1,10 @@
+{ 
+"name" : "Cartel peliculas",  
+"short_name": "CA",  
+"theme_color": "#F7D66A",  
+"background_color": "#d90429",  
+"display": "fullScreen",  
+"orientation": "landscape",  
+"scope": "/",  
+"start_url": "/"
+}

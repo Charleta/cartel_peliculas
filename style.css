@@ -12,7 +12,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     backdrop-filter: blur(100px) brightness(100%) saturate(150%);
-    background-image: url(img/34255-espacio.jpg);
+    background-color: #392959;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -277,7 +277,7 @@ header {
     padding: 20px;
 }
 
-#corazon_favorito{
+.corazon_favorito{
 
     font-size: 40px;
     cursor: pointer;
@@ -286,8 +286,8 @@ header {
 .top_modal{
     padding:20px ;
 }
-#corazon_favorito:hover,
-#corazon_favorito:focus{
+.corazon_favorito:hover,
+.corazon_favorito:focus{
     cursor: pointer;
     color: red;
     border: 1px black;
@@ -429,10 +429,13 @@ footer{
         width: 400px;
         margin-top: 25px;
         display: none;
+        
 
       }
       ul{
         width: 100%;
+        
+
       }
       
       .tachito{
