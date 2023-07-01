@@ -10,6 +10,7 @@ caches.open('mi-cache').then(cache =>{
         '/scripts/app.js',
         '/pouchdb-8.0.1.js',
         '/34255-espacio-jpg',
+        '/manifest.json',
         
     ])
 });
